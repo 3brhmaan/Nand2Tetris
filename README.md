@@ -5,7 +5,7 @@ Nand2Tetris
 
 Nand2Tetris website: http://nand2tetris.org/
 
-- [x] Project 1: Boolean Logic
+- [x] Project 1: [Boolean Logic](https://github.com/3brhmaan/Nand2Tetris/tree/main/Projects/Boolean%20Logic%20Gates)
 - [ ] Project 2: Boolean Arithmetic
 - [ ] Project 3: Sequential Logic   
 - [ ] Project 4: Machine Language 
