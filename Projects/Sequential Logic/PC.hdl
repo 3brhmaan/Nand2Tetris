@@ -1,0 +1,91 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/3/a/PC.hdl
+/**
+ * A 16-bit counter.
+ * if      reset(t): out(t+1) = 0
+ * else if load(t):  out(t+1) = in(t)
+ * else if inc(t):   out(t+1) = out(t) + 1
+ * else              out(t+1) = out(t)
+ */
+/*
+    - i have 4 operation here which are :
+        1. load in(x)
+        2. load output(y)
+        3. increament output(y)
+        4. reset the register
+    - so i draw a truth table based on the 3-bit control input to deduce each operation
+                            |
+    ------------------------|--------------------------------------
+    |reset(r)|load(l)|inc(i)|loadX(lx)|incY(iy)|reset(r)|loadY(ly)|
+    |--------|-------|------|---------|--------|--------|---------|
+    |   0    |  0    |   0  |    0    |    0   |   0    |   1     |                    
+    |   0    |  0    |   1  |    0    |    1   |   0    |   0     |
+    |   0    |  1    |   0  |    1    |    0   |   0    |   0     |
+    |   0    |  1    |   1  |    1    |    0   |   0    |   0     |
+    |   1    |  0    |   0  |    0    |    0   |   1    |   0     |
+    |   1    |  0    |   1  |    0    |    0   |   1    |   0     |
+    |   1    |  1    |   0  |    0    |    0   |   1    |   0     |
+    |   1    |  1    |   1  |    0    |    0   |   1    |   0     |
+    ---------------------------------------------------------------
+    
+    - laodX(lx) = R`.L
+    - incY(iy) = R`.L`.iy
+    - reset(r) = R
+    - loadY(ly) = R`.l`.iy`
+
+    - i will use ALU to perform the operations and based on the ALU control bits
+    - i will decide which operation to execute
+
+                -------------------------
+                |output|zx|nx|zy|ny|f |no|
+                |   x  |  |  |lx|lx|  |  |              
+                |   y  |ly|ly|  |  |  |  | 
+                |  y+1 |iy|iy|  |iy|iy|iy|   
+                |   0  |r |  |r |  |r |  |
+                -------------------------
+    - zx = ly+iy+r
+    - nx = ly+iy
+    - zy = lx+r
+    - ny = lx+iy
+    - f = iy+r
+    - no = iy
+
+    - the load bit in the register will be :
+    - load = inc + load + reset
+    - if it's one it will load the input otherwise it will keep its data
+*/
+
+
+CHIP PC {
+    IN in[16], reset, load, inc;
+    OUT out[16];
+    
+    PARTS:
+    
+    Not(in=reset , out=NOTr ); // R`
+    Not(in=load , out=NOTl );   // L`
+    Not(in=inc , out=NOTi );    // i`
+
+    And(a=NOTr , b=load , out=lx ); // loadX = R`.L
+    And(a=NOTr , b=NOTl , out=NOTrANDNOTl );
+    And(a=NOTrANDNOTl , b=inc , out=iy ); // incY = R`.L`.i
+    And(a=NOTrANDNOTl , b=NOTi , out=ly ); // loadY = R`.L`.i`
+    // reset = R
+
+    Or(a=ly , b=iy , out=nx ); // nx
+    Or(a=nx , b=reset , out=zx ); // zx
+    Or(a=lx , b=reset , out=zy ); // zy
+    Or(a=lx , b=iy , out=ny ); // ny
+    Or(a=iy , b=reset , out=f ); // f
+    // no = iy
+
+    Or(a=load , b=inc , out=loadANDinc );
+    Or(a=loadANDinc , b=reset , out=loadANDincANDreset );
+
+    ALU(x=in , y=RegisterOut , zx=zx , nx=nx , zy=zy ,
+        ny=ny , f=f , no=iy , out=ALUout , zr=zr , ng=ng );
+    
+    Register(in=ALUout , load=loadANDincANDreset , out=out , out=RegisterOut );
+}
