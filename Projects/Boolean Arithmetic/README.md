@@ -8,7 +8,7 @@
 
 - the `Sum` is Calculated using `XOR` Logic Gate of the `2 1-bit input`
 - the `Carry` is Calculated using `And` Logic Gate of the `2 1-bit input`
-  ![alt text](/Projects/Boolean%20Arithmetic/images/half-adder-logic-gate-level-circuit-diagram.jpg)
+  ![alt text](Images/half-adder-logic-gate-level-circuit-diagram.jpg)
 
 ### **Full Adder**
 
@@ -20,7 +20,7 @@
 
 - using [`2 Half Adder`](#half-adder) to calculate the `Sum` Value
 - using `1 OR` Gate to calculate the `Carry Value`
-  ![alt text](/Projects/Boolean%20Arithmetic/images/4-34.png)
+  ![alt text](Images/4-34.png)
 
 ### **Add16**
 
@@ -51,16 +51,16 @@
 ###### **How It Works**
 
 - it take `2 16-bit` input and compute one of the predefine functions function according to the `6 1-bit control input bits`
-  ![](/Projects/Boolean%20Arithmetic/images/ALU-Function.png)
+  ![](Images/ALU-Function.png)
 - in addition to calculate the 16-bit output it also computes `two output 1-bit`
 
   - if (out == 0) zr = 1, else zr = 0
   - if (out < 0) ng = 1, else ng = 0
 
 - each control bit have a meaning according to the following table
-  ![alt text](/Projects/Boolean%20Arithmetic/images/dd.png)
+  ![alt text](Images/dd.png)
 
 ###### **Implementation**
 
 - see the code , it's more clear
-  ![alt text](/Projects/Boolean%20Arithmetic/images/image.png)
+  ![alt text](Images/image.png)
