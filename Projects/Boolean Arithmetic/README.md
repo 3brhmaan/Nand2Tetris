@@ -20,7 +20,7 @@
 
 - using [`2 Half Adder`](#half-adder) to calculate the `Sum` Value
 - using `1 OR` Gate to calculate the `Carry Value`
-  ![alt text](Images/4-34.png)
+- ![alt text](Images/4-34.png)
 
 ### **Add16**
 
@@ -63,4 +63,4 @@
 ###### **Implementation**
 
 - see the code , it's more clear
-  ![alt text](Images/image.png)
+- ![alt text](Images/image.png)
