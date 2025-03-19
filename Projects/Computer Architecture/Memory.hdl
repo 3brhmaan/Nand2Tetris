@@ -1,0 +1,119 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/5/Memory.hdl
+/**
+ * The complete address space of the Hack computer's memory,
+ * including RAM and memory-mapped I/O. 
+ * The chip facilitates read and write operations, as follows:
+ *     Read:  out(t) = Memory[address(t)](t)
+ *     Write: if load(t-1) then Memory[address(t-1)](t) = in(t-1)
+ * In words: the chip always outputs the value stored at the memory 
+ * location specified by address. If load=1, the in value is loaded 
+ * into the memory location specified by address. This value becomes 
+ * available through the out output from the next time step onward.
+ * Address space rules:
+ * Only the upper 16K+8K+1 words of the Memory chip are used. 
+ * Access to address>0x6000 is invalid and reads 0. Access to any address
+ * in the range 0x4000-0x5FFF results in accessing the screen memory 
+ * map. Access to address 0x6000 results in accessing the keyboard 
+ * memory map. The behavior in these addresses is described in the Screen
+ * and Keyboard chip specifications given in the lectures and the book.
+ */
+
+// ------------
+/*
+    if (address < 16384)
+        then read/write from Ram
+    else if (address >= 16384 && address < 24576)
+        then read/write from screen
+    else if (address == 24576)
+        then read from keyboard
+    else 
+        reads 0
+
+*/
+
+
+
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+
+    // RAM
+    // if (address - 16384 < 0)
+    //  then read/write from memory
+	ALU(
+        // 16384 : 0100 0000 0000 0000
+        x[0..14]=address, x[15]=false , 
+        y[15]=false, y[14]=true , y[0..13]=false, 
+        zx=false , nx=true , zy=false , ny=false , f=true , no=true , 
+        out=outM , zr=equal16K , ng=less16K
+    );
+
+    Or(a=less16K , b=false , out=isRAM );
+
+    // to write in RAM then load and IsRAM must be true
+    And(a=load , b=isRAM , out=loadAndIsRam );
+    RAM16K(in=in , load=loadAndIsRam , address=address[0..13] , out=RAMOUT );
+
+    // SCREEEN
+    // if (address - 16384 >= 0 && address - 24576 < 0)
+    //  then read/write from screen
+    ALU(
+        // 24576 : 0110 0000 0000 0000
+        x[0..14]=address, x[15]=false , 
+        y[15]=false, y[14]=true, y[13]=true, y[0..12]=false, 
+        zx=false , nx=true , zy=false , ny=false , f=true , no=true , 
+        out=outS , zr=isKEYBOARD , ng=less24K
+    );
+
+    // less24K less16K output
+    //   0        0      0
+    //   0        1      0
+    //   1        0      1
+    //   1        1      0
+    Not(in=less16K , out=notLess16K );
+    And(a=less24K , b =notLess16K , out =isSCREEN );
+
+    // to write in Screen then load && isScreeen must be true
+    And(a=load , b=isSCREEN , out=loadAndIsScreen );
+    Screen(in=in , load=loadAndIsScreen , address=address[0..12] , out=SCREENOUT );
+
+
+    // KEYBOARD
+    // if (address == 24576)
+    //  then read from keyboard
+    Keyboard(out=KBDOUT );
+
+
+    // invalid address when !isRAM && !isSCREEEN && !isKEYBOARD
+    // if(invalid address)
+    //  read 0
+    Not(in=isSCREEN , out=notScreen );
+    Not(in=isRAM , out=notRam );
+    Not(in=isKEYBOARD , out=notKeyborad );
+    And(a=notScreen , b=notRam , out=notRamAndNotScreen );
+    And(a=notRamAndNotScreen , b=notKeyborad , out=isInvalidAddress );
+
+
+    /*
+        if (isRAM) out = RAMOUT
+        else if(isSCREEN) out = SCREENOUT
+        else if(isKEYBOARD) out = KBDOUT
+        else out = 0
+    */
+
+    Mux16(a=false , b=RAMOUT , sel=isRAM , out=out1 );
+    Mux16(a=out1 , b=SCREENOUT , sel=isSCREEN , out=out2 );
+    Mux16(a=out2 , b=KBDOUT , sel=isKEYBOARD , out=out3 );
+    Mux16(a=out3 , b=false , sel=isInvalidAddress , out=out );
+
+
+
+    
+    
+
+}
