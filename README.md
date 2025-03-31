@@ -8,8 +8,8 @@ Nand2Tetris website: http://nand2tetris.org/
 - [x] Project 2: [Boolean Arithmetic](https://github.com/3brhmaan/Nand2Tetris/tree/main/Projects/Boolean%20Arithmetic)
 - [x] Project 3: [Sequential Logic](https://github.com/3brhmaan/Nand2Tetris/tree/main/Projects/Sequential%20Logic)
 - [x] Project 4: [Machine Language](https://github.com/3brhmaan/Nand2Tetris/tree/main/Projects/Machine%20Language)
-- [x] Project 5: [Computer Architecture]("./Projects/Computer Architecture")
-- [x] Project 6: [Assembler]("./Projects/Assembler")
+- [x] Project 5: [Computer Architecture](https://github.com/3brhmaan/Nand2Tetris/tree/main/Projects/Computer%20Architecture)
+- [x] Project 6: [Assembler](https://github.com/3brhmaan/Nand2Tetris/tree/main/Projects/Assembler)
 - [ ] Project 7: VM I: Stack Arithmetic
 - [ ] Project 8: VM II: Program Control
 - [ ] Project 9: High-Level Language
