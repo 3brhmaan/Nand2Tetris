@@ -1,0 +1,15 @@
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\bin\Debug\net8.0\Assembler.exe
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\bin\Debug\net8.0\Assembler.deps.json
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\bin\Debug\net8.0\Assembler.runtimeconfig.json
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\bin\Debug\net8.0\Assembler.dll
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\bin\Debug\net8.0\Assembler.pdb
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.AssemblyInfoInputs.cache
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.AssemblyInfo.cs
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.csproj.CoreCompileInputs.cache
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.sourcelink.json
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.dll
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\refint\Assembler.dll
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.pdb
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\Assembler.genruntimeconfig.cache
+D:\Repo\Nand2Tetris\Projects\Assembler\Assembler\Assembler\obj\Debug\net8.0\ref\Assembler.dll
